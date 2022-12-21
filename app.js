@@ -2,7 +2,25 @@ const express = require("express");
 const path = require("path");
 const fs = require("fs");
 const app = express();
+
+const mongoose = require('mongoose');
+const bodyparser = require("body-parser");
+mongoose.set('strictQuery', true);
+
+mongoose.connect('mongodb://127.0.0.1/contactDance', {useNewUrlParser: true});
 const port = 8000;
+
+
+// Define mongoose schema
+var contactSchema = new mongoose.Schema({
+    name: String,
+    phone: String,
+    email: String,
+    address: String,
+    desc: String
+  });
+
+var Contact = mongoose.model('Contact', contactSchema);
 
 // EXPRESS SPECIFIC STUFF
 app.use('/static', express.static('static')) // For serving static files
